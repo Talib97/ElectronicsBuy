@@ -1,0 +1,142 @@
+<div class="container-fluid" *ngIf="cartItems.length!=0 ; else noItem">
+  <div class="display-4">Cart</div>
+  <hr>
+  <table class="table mx-auto bg-light">
+    <thead>
+      <tr>
+        <th scope="col">Sl No.</th>
+        <th scope="col">Product Image</th>
+        <th scope="col">Product Title</th>
+        <th scope="col">Price</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of cartItems ; index as i">
+        <th scope="row">{{i+1}}</th>
+        <td><img [src]="item.product.imageurl" height="80px" class="rounded-circle" alt=""></td>
+        <td>{{item.product.title}}</td>
+        <td>{{item.product.price | currency:"USD"}}</td>
+        <td>{{item.quantity}}</td>
+        <td>{{(item.product.price * item.quantity) | currency:"USD"}}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th colspan="2"></th>
+        <th colspan="3">Total</th>
+        <th>{{total | currency:"USD"}}</th>
+      </tr>
+    </tfoot>
+  </table>
+  <hr>
+  <button class="btn btn-outline-dark col-lg-4" (click)="openModal(form)">CHECK OUT</button>
+  <hr>
+  <hr>
+</div>
+<ng-template #noItem>
+  <div class="jumbotron jumbotron-fluid mt-4">
+    <div class="container">
+      <h1 class="display-4">No Items In Cart</h1>
+      <p class="lead">Go To Home To Add Products</p>
+    </div>
+  </div>
+</ng-template>
+
+<div class="container">
+<ng-template #form>
+  <div class="container-fluid">
+    <main>
+      <div class="py-3 text-center">
+
+        <h2>CHECK OUT</h2>
+
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-6 mx-auto col-lg-4 order-md-last">
+          <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">Your cart</span>
+            <span class="badge bg-secondary rounded-pill">{{cartItems?.length}}</span>
+          </h4>
+          <ul class="list-group mb-3">
+            <li *ngFor="let item of cartItems" class="list-group-item d-flex justify-content-between lh-sm">
+              <div>
+                <h6 class="my-0"> {{item.quantity}} * {{item.product.title}}</h6>
+              </div>
+              <span class="text-muted">{{(item.product.price*item.quantity) | currency:"USD"}}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Total (USD)</span>
+              <strong>{{total | currency:"USD"}}</strong>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-6 mx-auto border-right col-lg-8">
+          <h4 class="mb-3">Billing address</h4>
+          <form #checkoutform (ngSubmit)="checkout(firstName,lastName,address)">
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <label for="firstName" class="form-label">First name</label>
+                <input #firstName="ngModel" ngModel type="text" class="form-control" name="firstName" id="firstName"
+                  required autocomplete="off">
+                <div *ngIf="!firstName.valid && firstName.touched" class="text-danger">
+                  Valid first name is required.
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <label for="lastName" class="form-label">Last name</label>
+                <input #lastName="ngModel" ngModel type="text" class="form-control" name="lastName" id="lastName" required autocomplete="off">
+                <div *ngIf="!lastName.valid && lastName.touched" class="text-danger">
+                  Valid last name is required.
+                </div>
+              </div>
+
+              <div class="col-12">
+                <label for="address" class="form-label">Address</label>
+                <input #address="ngModel" ngModel  type="text" class="form-control" name="address" id="address" placeholder="1234 Main St" required autocomplete="off">
+                <div *ngIf="!address.valid && address.touched" class="text-danger">
+                  Address field is required.
+                </div>
+              </div>
+
+              <hr class="my-4">
+
+              <h4 class="mb-8">Payment</h4>
+            
+              <div class="my-3 mx-0">
+                <div class="form-check">
+                  <input id="credit" name="paymentMethod" type="radio" class="form-check-input"  disabled>
+                  <label class="form-check-label" for="credit">Credit card</label>
+                </div>
+                <div class="form-check">
+                  <input id="debit" name="paymentMethod" type="radio" class="form-check-input" disabled>
+                  <label class="form-check-label" for="debit">Debit card</label>
+                </div>
+                <div class="form-check">
+                  <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" disabled>
+                  <label class="form-check-label" for="paypal">PayPal</label>
+                </div>
+                <div class="form-check">
+                  <input  id="cod" name="paymentMethod" type="radio" class="form-check-input" checked required>
+                  <label class="form-check-label" for="cod">COD</label>
+                </div>
+              </div>
+
+
+
+              <hr class="my-4">
+
+              <button class="w-100 btn btn-outline-primary btn-sm mb-3" type="submit"[disabled]="!(firstName.valid && lastName.valid && address.valid)">PLACE ORDER</button>
+              <hr>
+            </div>  
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+</ng-template>
+</div>

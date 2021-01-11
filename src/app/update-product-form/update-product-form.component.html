@@ -1,0 +1,50 @@
+<div class="row mt-5 offset-2">
+    <div class="container col-md-6">
+        <form #productForm="ngForm" (ngSubmit)="update()">
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input #title='ngModel' [(ngModel)]='singleProduct.title' name="title" type="text" id="title" class="form-control" required>
+            </div>
+            <div class="form-group">
+            <label for="price">Price</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input #price='ngModel' [(ngModel)]="singleProduct.price"  name="price" type="number" id="price" class="form-control" required>
+              </div>
+              </div>
+              <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <input #quantity='ngModel' [(ngModel)]='singleProduct.quantity' name="quantity" type="number" id="quantity" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label>Category</label>
+              <select #category="ngModel" [(ngModel)]='singleProduct.category'  name="category" id="category" class="custom-select form-control" required>
+                <option selected>Choose Options</option>
+                <option *ngFor="let c of categories">
+                  {{c.name}}
+                </option>
+              </select> 
+              </div>
+              <div class="form-group">
+                <label for="imageurl">Image URL</label>
+                <input #imageurl='ngModel' [(ngModel)]="singleProduct.imageurl" name="imageurl" type="text" id="imageurl" class="form-control" required>
+              </div> 
+            <button type="submit" class="btn btn-success ml-2">Update</button>
+            <button type="button" class="btn btn-danger ml-2" (click)="delete()">Delete</button> 
+          </form>
+    </div> 
+    <div class="container col-md-6">
+        <div class="card" style="width: 25rem;">
+            <img [src]="singleProduct.imageurl" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">{{singleProduct.title}}</h5>
+              <h5 class="card-title">{{singleProduct.category}}</h5>
+              <p class="card-text">{{singleProduct.price | currency:"USD"}}</p>
+              <h6 class="card-title">{{singleProduct.quantity}}</h6>
+            </div>
+          </div>
+    </div>
+</div>
+

@@ -1,0 +1,33 @@
+<div class="container-fluid ">
+    
+    <div *ngIf="orderedProducts" class="jumbotron text-center mt-3">
+        <h1 class="display-4">Thank You!</h1>
+        <p class="lead"><strong>Your Order Is Placed Successfully</strong> we will provide further update on your email.</p>
+        <hr>
+        <p class="lead">
+          <a class="btn btn-primary btn-sm"routerLink="/home" role="button">Continue Shopping</a>
+        </p>
+      </div>
+    <h1 class="display-4">My Orders</h1>
+    <hr>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>SlNo.</th>
+                <th>product</th>
+                <th>price</th>
+                <th>quantity</th>
+                <th>Total Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let p of orderedProducts ;index as i">
+                <td>{{i+1}}</td>
+                <td>{{p.productName}}</td>
+                <td>{{p.price | currency:"USD"}}</td>
+                <td>{{p.quantity}}</td>
+                <td>{{(p.price * p.quantity) | currency:"USD"  }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,26 @@
+
+<div class="row mt-3 my-auto">
+
+    <div class="card mx-auto" style="width: 20rem;">
+        <img [src]="product.imageurl" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{product.title}}</h5>
+            <small class="card-text text-center">{{product.desc}}</small>
+            <hr>
+            <p class="card-text"><b>{{product.price | currency:'USD'}}</b></p>
+            <hr>
+            <div class="card-footer p-0 ">
+                <button *ngIf="!quantity else cartquantity " class="btn btn-block btn-primary text-center" (click)='addToCart(product)'>Add to Cart</button>
+                <ng-template #cartquantity>
+                                <div class="row no-gutters">
+                                    <div class="col-2"><button class="btn btn-block btn-primary" (click)="plusQuantity()">+</button></div>
+                                    <div class="col text-center">{{quantity}} in cart</div>
+                                    <div class="col-2"><button class="btn btn-block btn-primary" (click)="minusQuantity()">-</button></div>
+                                </div>
+                            </ng-template>
+
+            </div>
+        </div>
+    </div>
+
+</div>

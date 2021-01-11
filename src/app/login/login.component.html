@@ -1,0 +1,35 @@
+<div class="col-12">
+    <div class="row" *ngIf="authError">
+        <div class="col-12 alert alert-danger">{{authError.message}}</div>
+    </div>
+</div>
+    <article class="card-body mx-auto" style="max-width: 400px;">
+      <h4 class="card-title mt-3 text-center">Log In To Continue With ElectronicsBuy</h4>
+      <p>
+          <button class="btn btn-block btn-google" (click)="signInWithGoogle()"> <i class="fa fa-google"></i>   Login via Google</button>
+          <button class="btn btn-block btn-facebook"> <i class="fa fa-facebook-f"></i>   Login via facebook</button>
+      </p>
+      <p class="divider-text">
+          <span class="bg-light">OR</span>
+      </p>
+
+      <form #loginform="ngForm" (ngSubmit)="login(loginform.value)">
+      <div class="form-group input-group">
+          <div class="input-group-prepend">
+              <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+           </div>
+          <input name="email" ngModel class="form-control" placeholder="Email address" type="email">
+      </div> <!-- form-group// -->
+      <div class="form-group input-group">
+          <div class="input-group-prepend">
+              <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+          </div>
+          <input name="password" ngModel class="form-control" placeholder="Enter password" type="password">
+      </div> <!-- form-group// -->
+      <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block"> Log In  </button>
+      </div> <!-- form-group// -->      
+      <p class="text-center">Don't Have account? <a routerLink="/signup">Create</a> </p>                                                                 
+  </form>
+  </article>
+  
